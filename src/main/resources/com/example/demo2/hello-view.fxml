@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="podloga" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#pomeriPalicu" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.HelloController">
+<AnchorPane fx:id="podloga" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#pomeriPalicu" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.HelloController">
    <children>
-      <Rectangle fx:id="desniGol" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="81.0" stroke="BLACK" strokeType="INSIDE" width="22.0" y="150.0" AnchorPane.rightAnchor="0.0" />
+      <Rectangle fx:id="desniGol" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="81.0" stroke="BLACK" strokeType="INSIDE" width="8.0" y="150.0" AnchorPane.rightAnchor="0.0" />
       <Circle fx:id="pak" centerX="200.0" centerY="200.0" fill="#98a9b9" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="palica" fill="DODGERBLUE" layoutX="53.0" layoutY="51.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="palica" centerX="100.0" centerY="100.0" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fx:id="slikaGol" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="208.0" AnchorPane.topAnchor="116.0">
+         <image>
+            <Image url="@../../../slike/goal_2.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

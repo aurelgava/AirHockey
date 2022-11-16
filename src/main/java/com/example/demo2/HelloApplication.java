@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
         stage.show();
         HelloApplication.stage = stage;
         scene.setCursor(Cursor.NONE);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
 
     }
 

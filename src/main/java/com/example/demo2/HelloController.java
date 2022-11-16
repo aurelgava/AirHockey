@@ -3,6 +3,7 @@ package com.example.demo2;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -18,8 +19,14 @@ public class HelloController {
     private Circle palica;
     @FXML
     private Circle pak;
+    @FXML
+    private ImageView slikaGol;
     private double speedX=0,speedY=0;
-
+    private double koefTrenja=0.6;
+    private double deltaSpeedX = 0.02;
+    private double deltaSpeedY = 0.02;
+    private double masaPaka=2;
+    private final double gravity=9.81;
     private AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long l) {
@@ -29,12 +36,27 @@ public class HelloController {
             if(pak.getCenterY()+pak.getRadius()>=HelloApplication.stage.getHeight()  || (pak.getCenterY()-pak.getRadius()<=0)){
                 speedY *= -1;
             }
-            if(pak.intersects(desniGol.getBoundsInLocal())){
+            if(pak.intersects(desniGol.getBoundsInParent())){
                 System.out.println("GOLLLLL");
-                System.out.println(desniGol.getBoundsInLocal());
+                slikaGol.setVisible(true);
             }
             pak.setCenterX(pak.getCenterX()+speedX);
             pak.setCenterY(pak.getCenterY()+speedY);
+
+
+            if(Math.abs(speedX)<Math.abs(deltaSpeedX)*1.5)
+                speedX=0;
+            else
+                speedX+= -Math.signum(speedX) * deltaSpeedX;
+
+            if(Math.abs(speedY)<Math.abs(deltaSpeedY)*1.5)
+                speedY=0;
+            else
+                speedY+= -Math.signum(speedY) * deltaSpeedY;
+
+            //System.out.println(speedX);
+            //System.out.println(speedY);
+
         }
     };
 
@@ -53,13 +75,14 @@ public class HelloController {
             return false;
     }
     public void pomeriPalicu(MouseEvent e) {
-        palica.setCenterX(e.getX()-50);
-        palica.setCenterY(e.getY()-50);
+        palica.setCenterX(e.getX());
+        palica.setCenterY(e.getY());
         //Circle c = new Circle(0,0,5);
         if(sudar(e,pak)){
             //System.out.println("SUDAR!!");
+            slikaGol.setVisible(false);
             speedX=5;
-            speedY=0;
+            speedY=5;
             timer.start();
         }
     }
