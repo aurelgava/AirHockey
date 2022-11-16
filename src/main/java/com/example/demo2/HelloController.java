@@ -88,6 +88,7 @@ public class HelloController {
             //speedX=5;
             //speedY=5;
             timer.start();
+
         }
     }
 }
