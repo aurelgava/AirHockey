@@ -23,8 +23,8 @@ public class HelloController {
     private ImageView slikaGol;
     private double speedX=0,speedY=0;
     private double koefTrenja=0.6;
-    private double deltaSpeedX = 0.02;
-    private double deltaSpeedY = 0.02;
+    private double deltaSpeedX = 0.1;
+    private double deltaSpeedY = 0.1;
     private double masaPaka=2;
     private final double gravity=9.81;
     private AnimationTimer timer = new AnimationTimer() {
@@ -54,6 +54,8 @@ public class HelloController {
             else
                 speedY+= -Math.signum(speedY) * deltaSpeedY;
 
+            if(speedX==0 && speedY==0) timer.stop();
+
             //System.out.println(speedX);
             //System.out.println(speedY);
 
@@ -81,8 +83,10 @@ public class HelloController {
         if(sudar(e,pak)){
             //System.out.println("SUDAR!!");
             slikaGol.setVisible(false);
-            speedX=5;
-            speedY=5;
+            speedX=(pak.getCenterX() - e.getX())*0.5;
+            speedY=(pak.getCenterY() - e.getY())*0.5;
+            //speedX=5;
+            //speedY=5;
             timer.start();
         }
     }
