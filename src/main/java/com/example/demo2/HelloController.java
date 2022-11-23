@@ -3,6 +3,7 @@ package com.example.demo2;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -10,7 +11,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 public class HelloController {
+    private static Socket s;
+    private static ObjectOutputStream oos;
+    public Circle palica2;
     @FXML
     Pane podloga;
     @FXML
@@ -62,6 +71,16 @@ public class HelloController {
         }
     };
 
+    public static void konektujSe() {
+        try {
+            s = new Socket("10.91.1.212",1234);
+            oos = new ObjectOutputStream(s.getOutputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public void crtaj(ActionEvent actionEvent) {
         Line l1 = new Line(100,100,50,150);
         Line l2 = new Line(100,100,150,150);
@@ -79,6 +98,12 @@ public class HelloController {
     public void pomeriPalicu(MouseEvent e) {
         palica.setCenterX(e.getX());
         palica.setCenterY(e.getY());
+        try {
+            if(oos!=null)
+                oos.writeObject(new Tacka2D(e.getX(),e.getY()));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
         //Circle c = new Circle(0,0,5);
         if(sudar(e,pak)){
             //System.out.println("SUDAR!!");
@@ -90,5 +115,23 @@ public class HelloController {
             timer.start();
 
         }
+    }
+
+    public void pomeriPalicu2(Tacka2D pozicijaMisha) {
+        palica2.setCenterX(pozicijaMisha.x);
+        palica2.setCenterY(pozicijaMisha.y);
+    }
+
+
+    public void konektujSe(ActionEvent actionEvent) {
+        konektujSe();
+    }
+
+    public void hoverNadDugmetomKonekcijeUlaz(MouseEvent mouseEvent) {
+        HelloApplication.scene.setCursor(Cursor.OPEN_HAND);
+    }
+
+    public void hoverNadDugmetomKonekcijeIzlaz(MouseEvent mouseEvent) {
+        HelloApplication.scene.setCursor(Cursor.NONE);
     }
 }
